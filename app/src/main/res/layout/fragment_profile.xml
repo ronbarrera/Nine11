@@ -110,12 +110,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_personal_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:textColor="@drawable/edit_text_selector"
-            android:inputType="phone"
-            android:maxLines="1" />
+            style="@style/ProfileEditTextView"
+            android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -134,12 +130,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:textColor="@drawable/edit_text_selector"
-            android:inputType="textPostalAddress"
-            android:maxLines="1" />
+            style="@style/ProfileEditTextView"
+            android:inputType="textPostalAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -158,13 +150,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_dob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
+            style="@style/ProfileEditTextView"
             android:focusableInTouchMode="false"
-            android:inputType="date"
-            android:textColor="@drawable/edit_text_selector"
-            android:maxLines="1" />
+            android:inputType="date" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -182,9 +170,8 @@
 
         <AutoCompleteTextView
             android:id="@+id/autocomplete_blood_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@drawable/edit_text_selector" />
+            style="@style/ProfileEditTextView"
+            android:focusableInTouchMode="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -216,12 +203,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_contact_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:textColor="@drawable/edit_text_selector"
-            android:inputType="text"
-            android:maxLines="1" />
+            style="@style/ProfileEditTextView"
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -240,12 +223,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_contact_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:textColor="@drawable/edit_text_selector"
-            android:inputType="phone"
-            android:maxLines="1" />
+            style="@style/ProfileEditTextView"
+            android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

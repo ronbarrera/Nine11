@@ -13,6 +13,9 @@ import com.ronaldbarrera.nine11.R;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RecyclerViewConfig {
     private Context mContext;
     private LocationsAdapter mLocationsAdapter;
@@ -26,14 +29,13 @@ public class RecyclerViewConfig {
     }
 
     class LocationItemView extends RecyclerView.ViewHolder {
-        private TextView mTitle;
-
+        @BindView(R.id.text_location_title) TextView mTitle;
         private String key;
 
         public LocationItemView(ViewGroup parent) {
             super(LayoutInflater.from(mContext).inflate(R.layout.location_list_item, parent, false));
+            ButterKnife.bind(this, itemView);
 
-            mTitle = itemView.findViewById(R.id.text_location_title);
         }
 
         public void bind(Location location, String key) {

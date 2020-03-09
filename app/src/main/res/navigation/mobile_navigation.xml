@@ -9,7 +9,7 @@
         android:id="@+id/navigation_location"
         android:name="com.ronaldbarrera.nine11.ui.location.LocationFragment"
         android:label="@string/title_location"
-        tools:layout="@layout/fragment_location" />
+        tools:layout="@layout/location_list_item" />
 
     <fragment
         android:id="@+id/navigation_saved"

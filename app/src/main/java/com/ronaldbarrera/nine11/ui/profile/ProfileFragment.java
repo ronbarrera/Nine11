@@ -48,12 +48,16 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.edittext_personal_phone) TextInputEditText editTextPersonalPhone;
     @BindView(R.id.edittext_address) TextInputEditText editTextAddress;
     @BindView(R.id.edittext_dob) TextInputEditText editTextDob;
-    @BindView(R.id.inputlayout_blood_type) TextInputLayout  layoutBloodType;
     @BindView(R.id.autocomplete_blood_type) AutoCompleteTextView autoCompleteBloodType;
 
     @BindView(R.id.inputlayout_personal_name) TextInputLayout layoutPersonalName;
     @BindView(R.id.inputlayout_personal_phone) TextInputLayout layoutPersonalPhone;
     @BindView(R.id.inputlayout_address) TextInputLayout layoutAddress;
+    @BindView(R.id.inputlayout_dob) TextInputLayout layoutDob;
+    @BindView(R.id.inputlayout_blood_type) TextInputLayout layoutBloodType;
+    @BindView(R.id.inputlayout_contact_name) TextInputLayout layoutContactName;
+    @BindView(R.id.inputlayout_contact_phone) TextInputLayout layoutContactPhone;
+
 
 
 
@@ -156,32 +160,26 @@ public class ProfileFragment extends Fragment {
 
     private void disableTextViews() {
         buttonChangePhoto.setVisibility(View.INVISIBLE);
-       // editTextPersonalName.setEnabled(false);
-        editTextPersonalPhone.setEnabled(false);
-        editTextAddress.setEnabled(false);
-        editTextDob.setEnabled(false);
-        layoutBloodType.setEnabled(false);
-        autoCompleteBloodType.setEnabled(false);
 
         layoutPersonalName.setEnabled(false);
         layoutPersonalPhone.setEnabled(false);
         layoutAddress.setEnabled(false);
-
-
+        layoutDob.setEnabled(false);
+        layoutBloodType.setEnabled(false);
+        layoutContactName.setEnabled(false);
+        layoutContactPhone.setEnabled(false);
     }
 
     private void enagleTextViews() {
         buttonChangePhoto.setVisibility(View.VISIBLE);
-        //editTextPersonalName.setEnabled(true);
-        editTextPersonalPhone.setEnabled(true);
-        editTextAddress.setEnabled(true);
-        editTextDob.setEnabled(true);
-        layoutBloodType.setEnabled(true);
-        autoCompleteBloodType.setEnabled(true);
 
         layoutPersonalName.setEnabled(true);
         layoutPersonalPhone.setEnabled(true);
         layoutAddress.setEnabled(true);
+        layoutDob.setEnabled(true);
+        layoutBloodType.setEnabled(true);
+        layoutContactName.setEnabled(true);
+        layoutContactPhone.setEnabled(true);
     }
 
 }

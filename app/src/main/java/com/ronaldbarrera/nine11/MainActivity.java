@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        navView.setSelectedItemId(R.id.navigation_profile);
+        //navView.setSelectedItemId(R.id.navigation_profile);
 
         //Set toolbar
 //        Toolbar toolbar = findViewById(R.id.toolbar);
