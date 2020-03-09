@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Nine11</string>
+    <string name="title_location">Location</string>
+    <string name="title_saved">Saved</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_settings">Settings</string>
+
+
+    <string-array name="types_blood_list">
+        <item>A+</item>
+        <item>O+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>A-</item>
+        <item>O-</item>
+        <item>B-</item>
+        <item>AB-</item>
+    </string-array>
+</resources>
