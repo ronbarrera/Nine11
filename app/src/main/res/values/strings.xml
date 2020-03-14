@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Nine11</string>
-    <string name="title_location">Location</string>
+    <string name="title_center">Center</string>
     <string name="title_saved">Saved</string>
     <string name="title_profile">Profile</string>
     <string name="title_settings">Settings</string>
@@ -17,7 +17,6 @@
         <item>AB-</item>
     </string-array>
 
-    <string name="address_template">%s \n%s</string>
     <string name="title_activity_location_map">Map</string>
 
 </resources>

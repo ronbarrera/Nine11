@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -21,9 +21,9 @@
     <style name="ProfileEditTextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:imeOptions">actionNext</item>
         <item name="android:textColor">@drawable/edit_text_selector</item>
         <item name="android:maxLines">1</item>
+        <item name="android:imeOptions">actionNext</item>
     </style>
 
 

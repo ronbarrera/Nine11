@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_location">
+    app:startDestination="@+id/navigation_center">
 
     <fragment
-        android:id="@+id/navigation_location"
-        android:name="com.ronaldbarrera.nine11.ui.location.LocationFragment"
-        android:label="@string/title_location"
-        tools:layout="@layout/location_list_item" />
+        android:id="@+id/navigation_center"
+        android:name="com.ronaldbarrera.nine11.ui.center.CenterFragment"
+        android:label="@string/title_center"
+        tools:layout="@layout/center_list_item" />
 
     <fragment
         android:id="@+id/navigation_saved"

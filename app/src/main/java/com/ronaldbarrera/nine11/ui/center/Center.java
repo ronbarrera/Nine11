@@ -1,7 +1,16 @@
-package com.ronaldbarrera.nine11.ui.location;
+package com.ronaldbarrera.nine11.ui.center;
 
-public class Location {
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "center")
+public class Center {
+
+    @PrimaryKey
+    @NonNull
+    private String id;
     private String name;
     private String title;
     private String address;
@@ -12,9 +21,11 @@ public class Location {
     private double lat;
     private double lng;
 
-    public Location() {}
+    @Ignore
+    public Center() {}
 
-    public Location(String name, String title, String address, String city, String state, String zip, String phone, double lat, double lng) {
+    @Ignore
+    public Center(String name, String title, String address, String city, String state, String zip, String phone, double lat, double lng) {
         this.name = name;
         this.title = title;
         this.address = address;
@@ -25,6 +36,22 @@ public class Location {
         this.lat = lat;
         this.lng = lng;
     }
+
+    public Center(String id, String name, String title, String address, String city, String state, String zip, String phone, double lat, double lng) {
+        this.id = id;
+        this.name = name;
+        this.title = title;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phone = phone;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -44,6 +71,18 @@ public class Location {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getFullAddress() {
+        StringBuilder completeAddress = new StringBuilder();
+        completeAddress.append(this.getAddress());
+        completeAddress.append("\n");
+        completeAddress.append(this.getCity());
+        completeAddress.append(", ");
+        completeAddress.append(this.getState());
+        completeAddress.append(" ");
+        completeAddress.append(this.getZip());
+        return completeAddress.toString();
     }
 
     public void setAddress(String address) {

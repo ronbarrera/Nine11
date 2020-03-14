@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:backgroundTint="@color/colorOnSurfaceBackground"
     android:layout_marginBottom="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +19,7 @@
             android:layout_marginHorizontal="16dp"
             app:layout_constraintStart_toEndOf="@id/vertical_middle"
             android:background="@null"
+            android:tint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,11 +33,11 @@
             app:layout_constraintGuide_percent="0.9" />
 
         <TextView
-            android:id="@+id/text_location_title"
+            android:id="@+id/text_center_title"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="16dp"
             app:layout_constraintEnd_toStartOf="@id/vertical_middle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,15 +45,29 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/text_location_address"
+            android:id="@+id/text_center_address"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/text_location_title"
-            app:layout_constraintStart_toStartOf="@id/text_location_title"
-            app:layout_constraintTop_toBottomOf="@id/text_location_title"
+            android:layout_marginVertical="8dp"
+            app:layout_constraintEnd_toEndOf="@id/text_center_title"
+            app:layout_constraintStart_toStartOf="@id/text_center_title"
+            app:layout_constraintTop_toBottomOf="@id/text_center_title"
+            app:layout_constraintBottom_toTopOf="@id/text_center_phone"
             android:text="3150 Lenox Park Blvd Suite 108 \nMemphis, TN 38115"
             android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/text_center_phone"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            app:layout_constraintEnd_toEndOf="@id/text_center_address"
+            app:layout_constraintStart_toStartOf="@id/text_center_address"
+            app:layout_constraintTop_toBottomOf="@id/text_center_address"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="901-380-3912" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
