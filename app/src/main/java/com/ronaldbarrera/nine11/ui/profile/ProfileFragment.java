@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.preference.Preference;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,10 +20,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -31,12 +37,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ronaldbarrera.nine11.AppExecutors;
+import com.ronaldbarrera.nine11.Geofencing;
 import com.ronaldbarrera.nine11.R;
 import com.ronaldbarrera.nine11.database.AppDatabase;
 import com.ronaldbarrera.nine11.database.UserEntry;
+import com.ronaldbarrera.nine11.ui.center.Center;
+import com.ronaldbarrera.nine11.viewmodel.CenterViewModel;
 import com.ronaldbarrera.nine11.viewmodel.ProfileViewModel;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +82,8 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.inputlayout_contact_name) TextInputLayout layoutContactName;
     @BindView(R.id.inputlayout_contact_phone) TextInputLayout layoutContactPhone;
 
+    @BindView(R.id.switch_notification) Switch switchNotification;
+
     private static final String TAG = ProfileFragment.class.getSimpleName();
     private AppDatabase mDb;
 
@@ -79,6 +91,9 @@ public class ProfileFragment extends Fragment {
     private UserEntry userProfile;
 
     private Context mContext;
+    private boolean mIsNotificationEnabled;
+    private Geofencing mGeofencing;
+
 
 
     private ProfileViewModel profileViewModel;
@@ -151,7 +166,39 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        mGeofencing = new Geofencing(mContext);
+
+        setupCenterViewModel();
+
+        mIsNotificationEnabled = this.getActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(getString(R.string.setting_enabled), false);
+        switchNotification.setChecked(mIsNotificationEnabled);
+        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
+                editor.putBoolean(getString(R.string.setting_enabled), isChecked);
+                mIsNotificationEnabled = isChecked;
+                editor.commit();
+                if(mIsNotificationEnabled) mGeofencing.registerAllGeofences();
+                else mGeofencing.unRegisterAllGeofences();
+            }
+        });
+
         return root;
+    }
+
+    private void setupCenterViewModel() {
+        CenterViewModel centerViewModel = new ViewModelProvider(this).get(CenterViewModel.class);
+        centerViewModel.getCenters().observe(getViewLifecycleOwner(), new Observer<List<Center>>() {
+            @Override
+            public void onChanged(@Nullable List<Center> centers) {
+                Log.d(TAG, "Updating list of centers from LiveData in ViewModel");
+                Log.d(TAG, "Size of centers = " + centers.size());
+                mGeofencing.updateGeofencesList(centers);
+                if(mIsNotificationEnabled && centers.size() > 0)
+                    mGeofencing.registerAllGeofences();
+            }
+        });
     }
 
     private void selectImage(Context context) {
@@ -177,7 +224,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_CANCELED) {
-            if(requestCode == 1) {
+            if(requestCode == 0) {
                 if (resultCode == RESULT_OK && data != null) {
                     Uri contentURI = data.getData();
                     AppExecutors.getInstance().diskIO().execute(() -> mDb.userDao().updatePhotoUri(contentURI.toString(), userProfile.getId()));

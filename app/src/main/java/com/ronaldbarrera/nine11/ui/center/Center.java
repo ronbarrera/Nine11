@@ -11,6 +11,7 @@ public class Center {
     @PrimaryKey
     @NonNull
     private String id;
+    private String psap_name;
     private String name;
     private String title;
     private String address;
@@ -25,8 +26,9 @@ public class Center {
     public Center() {}
 
     @Ignore
-    public Center(String name, String title, String address, String city, String state, String zip, String phone, double lat, double lng) {
+    public Center(String name, String psap_name, String title, String address, String city, String state, String zip, String phone, double lat, double lng) {
         this.name = name;
+        this.psap_name = psap_name;
         this.title = title;
         this.address = address;
         this.city = city;
@@ -37,9 +39,10 @@ public class Center {
         this.lng = lng;
     }
 
-    public Center(String id, String name, String title, String address, String city, String state, String zip, String phone, double lat, double lng) {
+    public Center(String id, String name, String psap_name, String title, String address, String city, String state, String zip, String phone, double lat, double lng) {
         this.id = id;
         this.name = name;
+        this.psap_name = psap_name;
         this.title = title;
         this.address = address;
         this.city = city;
@@ -50,7 +53,12 @@ public class Center {
         this.lng = lng;
     }
 
+    public String getPsap_name() { return psap_name; }
+
+    public void setPsap_name(String psap_name) { this.psap_name = psap_name; }
+
     public String getId() { return id; }
+
     public void setId(String id) { this.id = id; }
 
     public String getName() {

@@ -17,7 +17,7 @@ public interface CenterDao {
     LiveData<List<Center>> getAllCenters();
 
     @Query("SELECT * FROM center WHERE id = :id")
-    Center getCenterById(int id);
+    Center getCenterById(String id);
 
     @Insert
     void insertCenter(Center entry);

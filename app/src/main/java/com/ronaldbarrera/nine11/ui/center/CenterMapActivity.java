@@ -52,7 +52,7 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
     private boolean mLocationPermissionGranted;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private Center center;
-    private boolean isFavorite = false;
+    private boolean isSaved;
 
 
     @BindView(R.id.text_center_title)
@@ -85,6 +85,16 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
 
         mTitle.setText(center.getTitle());
         mAddress.setText(center.getFullAddress());
+
+
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            Center mDbCenter = mDb.centerDao().getCenterById(center.getId());
+            runOnUiThread(() -> {
+                isSaved = (mDbCenter != null);
+                onSaveUI();
+            });
+        });
+
     }
 
     /**
@@ -132,6 +142,7 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
         //mMap.addMarker(new MarkerOptions().position(geoPoint).title(center.getTitle()));
         mMap.addMarker(marker);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(geoPoint, 11));
+
 
 
 
@@ -205,15 +216,35 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     public void onSaveAction(View view) {
-        if(isFavorite) {
-            isFavorite = false;
-            //unmarkAsFavorite();
-            mSave.setImageDrawable(getDrawable(R.drawable.ic_favorite_border));
+
+        Log.d("CenterMapActivity", "this is isFavorite =  " + isSaved);
+        isSaved = !isSaved;
+
+        if(isSaved) {
+            AppExecutors.getInstance().diskIO().execute(() -> { mDb.centerDao().insertCenter(center); });
+            Snackbar.make(mActivityCenterLayout, "Center Added!", Snackbar.LENGTH_LONG).show();
         } else {
-            isFavorite = true;
-            markAsFavorite();
-            mSave.setImageDrawable(getDrawable(R.drawable.ic_favorite));
+            AppExecutors.getInstance().diskIO().execute(() -> { mDb.centerDao().deleteCenter(center); });
+            Snackbar.make(mActivityCenterLayout, "Center Deleted!", Snackbar.LENGTH_LONG).show();
         }
+
+        onSaveUI();
+
+//        if(isSaved) {
+//            //onSaveUI();
+//            isSaved = false;
+//            //unmarkAsFavorite();
+//            mSave.setImageDrawable(getDrawable(R.drawable.ic_favorite_border));
+//        } else {
+//            isSaved = true;
+//            //markAsFavorite();
+//            mSave.setImageDrawable(getDrawable(R.drawable.ic_favorite));
+//        }
+    }
+
+    public void onSaveUI() {
+        Drawable saveIcon = getDrawable((isSaved ? R.drawable.ic_favorite : R.drawable.ic_favorite_border));
+        mSave.setImageDrawable(saveIcon);
     }
 
     private void markAsFavorite() {

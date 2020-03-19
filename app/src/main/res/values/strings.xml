@@ -19,4 +19,7 @@
 
     <string name="title_activity_location_map">Map</string>
 
+    <string name="setting_enabled" translatable="false">EnabledSetting</string>
+
+
 </resources>

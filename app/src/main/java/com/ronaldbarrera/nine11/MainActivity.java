@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ronaldbarrera.nine11.database.AppDatabase;
@@ -66,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //setupViewModel();
+
+
+//        mClient = new GoogleApiClient.Builder(this)
+//                .addConnectionCallbacks(this)
+//                .addOnConnectionFailedListener(this)
+//                .addApi(LocationServices.API)
+//                .enableAutoManage(this, this)
+//                .build();
+
     }
 //    private void setupViewModel() {
 //
