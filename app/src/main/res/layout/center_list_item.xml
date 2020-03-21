@@ -4,7 +4,7 @@
     style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/colorOnSurfaceBackground"
+    android:backgroundTint="@color/colorCardBackground"
     android:layout_marginBottom="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +48,10 @@
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
+            android:layout_marginVertical="16dp"
+            android:drawableStart="@drawable/ic_location"
+            android:drawablePadding="5dp"
+            android:drawableTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="@id/text_center_psap_name"
             app:layout_constraintStart_toStartOf="@id/text_center_psap_name"
             app:layout_constraintTop_toBottomOf="@id/text_center_psap_name"

@@ -1,4 +1,4 @@
-package com.ronaldbarrera.nine11.ui.saved;
+package com.ronaldbarrera.nine11.ui.center;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ronaldbarrera.nine11.R;
-import com.ronaldbarrera.nine11.ui.center.Center;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedViewHol
     @Override
     public void onBindViewHolder(@NonNull SavedViewHolder holder, int position) {
 
-        holder.mTitle.setText(mSavedCenters.get(position).getTitle());
+        holder.mPsapName.setText(mSavedCenters.get(position).getPsap_name());
     }
 
     @Override
@@ -53,8 +52,8 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedViewHol
 
      class SavedViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.text_center_title)
-        TextView mTitle;
+        @BindView(R.id.text_saved_center_psap_name)
+        TextView mPsapName;
 
         public SavedViewHolder(View itemView) {
             super(itemView);

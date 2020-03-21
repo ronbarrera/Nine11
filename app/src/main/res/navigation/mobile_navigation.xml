@@ -12,12 +12,6 @@
         tools:layout="@layout/center_list_item" />
 
     <fragment
-        android:id="@+id/navigation_saved"
-        android:name="com.ronaldbarrera.nine11.ui.saved.SavedFragment"
-        android:label="@string/title_saved"
-        tools:layout="@layout/fragment_saved" />
-
-    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.ronaldbarrera.nine11.ui.profile.ProfileFragment"
         android:label="@string/title_profile"

@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -33,6 +35,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.ronaldbarrera.nine11.AppExecutors;
@@ -45,6 +48,8 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
+
 public class CenterMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -55,12 +60,19 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
     private boolean isSaved;
 
 
+    @BindView(R.id.text_center_psap_name)
+    TextView mPsapName;
+    @BindView(R.id.text_center_name)
+    TextView mName;
     @BindView(R.id.text_center_title)
     TextView mTitle;
     @BindView(R.id.text_center_address)
     TextView mAddress;
+    @BindView(R.id.text_center_phone)
+    TextView mPhone;
+
     @BindView(R.id.button_save)
-    ImageButton mSave;
+    FloatingActionButton mSave;
 
     @BindView(R.id.activity_center_layout)
     FrameLayout mActivityCenterLayout;
@@ -83,8 +95,11 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        mPsapName.setText(center.getPsap_name());
+        mName.setText(center.getName());
         mTitle.setText(center.getTitle());
         mAddress.setText(center.getFullAddress());
+        mPhone.setText(center.getPhone());
 
 
         AppExecutors.getInstance().diskIO().execute(() -> {

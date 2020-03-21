@@ -22,4 +22,9 @@
     <string name="setting_enabled" translatable="false">EnabledSetting</string>
 
 
+    <string name="tab_all_centers">All Centers</string>
+    <string name="tab_saved_centers">Saved Centers</string>
+
+
+    <string name="name_string"><b>%s</b>\n<i>%s</i></string>
 </resources>

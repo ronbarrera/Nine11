@@ -7,12 +7,62 @@
     android:layout_height="match_parent"
     tools:context=".ui.center.CenterMapActivity">
 
-<androidx.fragment.app.FragmentContainerView
+    <androidx.fragment.app.FragmentContainerView
     android:id="@+id/map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.center.CenterMapActivity" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_margin="16dp">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:backgroundTint="#1E1E1E"
+            android:onClick="onBackAction"
+            android:src="@drawable/ic_arrow_left"
+            android:layout_alignParentStart="true"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            app:elevation="8dp"
+            app:tint="@color/colorPrimary" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:backgroundTint="#1E1E1E"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="20dp"
+            android:elevation="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:src="@drawable/logo_purple"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:backgroundTint="#1E1E1E"
+            android:onClick="onSaveAction"
+            android:src="@drawable/ic_favorite"
+            android:layout_alignParentEnd="true"
+            app:tint="#B00020"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            app:elevation="8dp" />
+
+    </RelativeLayout>
 
 
     <com.google.android.material.card.MaterialCardView
@@ -22,129 +72,93 @@
         android:backgroundTint="#1E1E1E"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="30dp"
+        android:clickable="true"
+        app:rippleColor="@android:color/transparent"
         app:cardCornerRadius="10dp"
         android:elevation="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
+            android:padding="16dp"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/button_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                app:layout_constraintStart_toEndOf="@id/vertical_middle"
-                android:background="@null"
-                android:src="@drawable/ic_favorite_border"
-                android:onClick="onSaveAction"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/vertical_middle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.9" />
-
             <TextView
-                android:id="@+id/text_center_title"
+                android:id="@+id/text_center_psap_name"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginBottom="8dp"
                 android:paddingBottom="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/vertical_middle"
                 android:text="Public Safety Communication Manager"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/text_center_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/icon_address"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/text_center_name"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_location"
-                android:tint="@color/colorPrimary"
-                app:layout_constraintStart_toStartOf="@id/text_center_title"
-                app:layout_constraintEnd_toStartOf="@id/text_center_address"
-                app:layout_constraintTop_toTopOf="@id/text_center_address"
-                app:layout_constraintBottom_toBottomOf="@id/text_center_address"/>
+                android:drawableStart="@drawable/ic_name"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/colorPrimary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_center_psap_name"
+                app:layout_constraintBottom_toTopOf="@id/text_center_title"
+                android:text="Carlton Ray" />
+
+            <TextView
+                android:id="@+id/text_center_title"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="8dp"
+                android:text="Carlton Ray"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@id/text_center_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_center_name" />
 
             <TextView
                 android:id="@+id/text_center_address"
-                style="@style/TextAppearance.MaterialComponents.Body2"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="16dp"
-                android:layout_marginHorizontal="8dp"
-                app:layout_constraintEnd_toEndOf="@id/text_center_title"
-                app:layout_constraintStart_toEndOf="@id/icon_address"
-                app:layout_constraintTop_toBottomOf="@id/text_center_title"
+                android:layout_marginBottom="8dp"
+                android:drawableStart="@drawable/ic_location"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/colorPrimary"
                 android:text="3150 Lenox Park Blvd Suite 108 \nMemphis, TN 38115"
-                android:textStyle="italic"/>
-
-            <ImageView
-                android:id="@+id/icon_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_phone"
-                android:tint="@color/colorPrimary"
-                app:layout_constraintStart_toStartOf="@id/icon_address"
-                app:layout_constraintEnd_toEndOf="@id/icon_address"
-                app:layout_constraintTop_toTopOf="@id/text_center_phone"
-                app:layout_constraintBottom_toBottomOf="@id/text_center_phone"/>
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/text_center_phone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_center_title" />
 
             <TextView
                 android:id="@+id/text_center_phone"
-                style="@style/TextAppearance.MaterialComponents.Body2"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="16dp"
-                android:layout_marginHorizontal="8dp"
                 android:autoLink="phone"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/colorPrimary"
+                android:text="650-329-2114"
                 android:textColorLink="#00A2ED"
-                app:layout_constraintEnd_toEndOf="@id/text_center_title"
-                app:layout_constraintStart_toEndOf="@id/icon_address"
-                app:layout_constraintTop_toBottomOf="@id/text_center_address"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:text="650-329-2114" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_center_address" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start|top"
-        android:clickable="true"
-        android:layout_margin="14dp"
-        android:backgroundTint="#1E1E1E"
-        android:onClick="onBackAction"
-        android:src="@drawable/ic_arrow_left"
-        app:borderWidth="0dp"
-        app:fabSize="mini"
-        app:elevation="8dp"
-        app:tint="@color/colorPrimary" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="18dp"
-        android:backgroundTint="#1E1E1E"
-        android:layout_gravity="top|center"
-        app:cardCornerRadius="20dp"
-        android:elevation="8dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="6dp"
-            android:src="@drawable/logo_purple"/>
-    </com.google.android.material.card.MaterialCardView>
-
 </FrameLayout>

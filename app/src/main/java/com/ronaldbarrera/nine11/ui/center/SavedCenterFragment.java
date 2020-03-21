@@ -1,4 +1,4 @@
-package com.ronaldbarrera.nine11.ui.saved;
+package com.ronaldbarrera.nine11.ui.center;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -14,7 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.ronaldbarrera.nine11.AppExecutors;
 import com.ronaldbarrera.nine11.R;
 import com.ronaldbarrera.nine11.database.AppDatabase;
-import com.ronaldbarrera.nine11.ui.center.Center;
 import com.ronaldbarrera.nine11.viewmodel.CenterViewModel;
 
 import java.util.List;
@@ -31,10 +31,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SavedFragment extends Fragment {
+public class SavedCenterFragment extends Fragment {
 
     private CenterViewModel savedViewModel;
-    private static final String TAG = SavedFragment.class.getSimpleName();
+    private static final String TAG = SavedCenterFragment.class.getSimpleName();
     private Context mContext;
     private SavedAdapter mAdapter;
     private AppDatabase mDb;
@@ -45,19 +45,24 @@ public class SavedFragment extends Fragment {
     @BindView(R.id.fragment_saved_layout)
     ConstraintLayout mFragmentSavedLayout;
 
+    @BindView(R.id.text_no_saved)
+    TextView mTextViewNoSaved;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         savedViewModel = new ViewModelProvider(this).get(CenterViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_saved, container, false);
+        View root = inflater.inflate(R.layout.fragment_saved_center, container, false);
         Log.d("SavedFragment", "onCreateView called");
         ButterKnife.bind(this, root);
 
 
-        LinearLayoutManager layoutManager= new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        //LinearLayoutManager layoutManager= new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new SavedAdapter(mContext);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -94,9 +99,9 @@ public class SavedFragment extends Fragment {
         centerViewModel.getCenters().observe(getViewLifecycleOwner(), new Observer<List<Center>>() {
             @Override
             public void onChanged(@Nullable List<Center> centers) {
-                Log.d(TAG, "Updating list of centers from LiveData in ViewModel");
-                Log.d(TAG, "Size of centers = " + centers.size());
                 mAdapter.setSavedCenters(centers);
+                if(centers.size() == 0) mTextViewNoSaved.setVisibility(View.VISIBLE);
+                else mTextViewNoSaved.setVisibility(View.INVISIBLE);
             }
         });
     }

@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.ronaldbarrera.nine11.R;
 
 import java.util.List;
@@ -18,13 +20,16 @@ import butterknife.ButterKnife;
 
 public class CenterFragment extends Fragment {
 
-    @BindView(R.id.recyclerview_centers)
-    RecyclerView mRecyclerView;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_center, container, false);
-        ButterKnife.bind(this, root);
+
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getContext(), getChildFragmentManager());
+        ViewPager viewPager = root.findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = root.findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+
 
 
 //        Center centerTest = new Center();
@@ -49,27 +54,27 @@ public class CenterFragment extends Fragment {
 //            }
 //        });
 
-        new FirebaseDatabaseHelper().readCentersFirebase(new FirebaseDatabaseHelper.DataStatus() {
-            @Override
-            public void DataIsLoaded(List<Center> centers, List<String> keys) {
-                new RecyclerViewConfig().setConfig(mRecyclerView, getContext(), centers, keys);
-            }
-
-            @Override
-            public void DataIsInserted() {
-
-            }
-
-            @Override
-            public void DataIsUpdated() {
-
-            }
-
-            @Override
-            public void DataIsDeleted() {
-
-            }
-        });
+//        new FirebaseDatabaseHelper().readCentersFirebase(new FirebaseDatabaseHelper.DataStatus() {
+//            @Override
+//            public void DataIsLoaded(List<Center> centers, List<String> keys) {
+//                new RecyclerViewConfig().setConfig(mRecyclerView, getContext(), centers, keys);
+//            }
+//
+//            @Override
+//            public void DataIsInserted() {
+//
+//            }
+//
+//            @Override
+//            public void DataIsUpdated() {
+//
+//            }
+//
+//            @Override
+//            public void DataIsDeleted() {
+//
+//            }
+//        });
         return root;
     }
 }
