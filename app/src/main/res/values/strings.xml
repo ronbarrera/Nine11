@@ -27,4 +27,6 @@
 
 
     <string name="name_string"><b>%s</b>\n<i>%s</i></string>
+    <string name="appwidget_text">Nine11</string>
+    <string name="add_widget">Add widget</string>
 </resources>

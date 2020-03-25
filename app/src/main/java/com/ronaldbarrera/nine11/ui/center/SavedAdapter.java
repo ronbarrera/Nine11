@@ -1,15 +1,21 @@
 package com.ronaldbarrera.nine11.ui.center;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
+import com.ronaldbarrera.nine11.AppExecutors;
 import com.ronaldbarrera.nine11.R;
+import com.ronaldbarrera.nine11.database.AppDatabase;
 
 import java.util.List;
 
@@ -27,15 +33,37 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedViewHol
 
     @Override
     public SavedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.saved_center_list_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.saved_center_list_item, parent, false);
         return new SavedViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SavedViewHolder holder, int position) {
 
-        holder.mPsapName.setText(mSavedCenters.get(position).getPsap_name());
+        holder.mTextViewPsapName.setText(mSavedCenters.get(position).getPsap_name());
+        holder.mImageButtonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MaterialAlertDialogBuilder(mContext)
+                        .setTitle("Delete this center?")
+                        .setMessage("This action cannot be undone.")
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                AppDatabase mDb = AppDatabase.getInstance(mContext);
+
+                                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mDb.centerDao().deleteCenter(mSavedCenters.get(position));
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+            }
+        });
     }
 
     @Override
@@ -50,10 +78,13 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedViewHol
         notifyDataSetChanged();
     }
 
-     class SavedViewHolder extends RecyclerView.ViewHolder {
+     static class SavedViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.text_saved_center_psap_name)
-        TextView mPsapName;
+        TextView mTextViewPsapName;
+
+        @BindView(R.id.button_delete)
+         ImageButton mImageButtonDelete;
 
         public SavedViewHolder(View itemView) {
             super(itemView);

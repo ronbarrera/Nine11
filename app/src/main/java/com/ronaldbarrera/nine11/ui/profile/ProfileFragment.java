@@ -82,8 +82,6 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.inputlayout_contact_name) TextInputLayout layoutContactName;
     @BindView(R.id.inputlayout_contact_phone) TextInputLayout layoutContactPhone;
 
-    @BindView(R.id.switch_notification) Switch switchNotification;
-
     private static final String TAG = ProfileFragment.class.getSimpleName();
     private AppDatabase mDb;
 
@@ -91,7 +89,6 @@ public class ProfileFragment extends Fragment {
     private UserEntry userProfile;
 
     private Context mContext;
-    private boolean mIsNotificationEnabled;
     private Geofencing mGeofencing;
 
 
@@ -168,37 +165,23 @@ public class ProfileFragment extends Fragment {
 
         mGeofencing = new Geofencing(mContext);
 
-        setupCenterViewModel();
+       // setupCenterViewModel();
 
-        mIsNotificationEnabled = this.getActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(getString(R.string.setting_enabled), false);
-        switchNotification.setChecked(mIsNotificationEnabled);
-        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences.Editor editor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
-                editor.putBoolean(getString(R.string.setting_enabled), isChecked);
-                mIsNotificationEnabled = isChecked;
-                editor.commit();
-                if(mIsNotificationEnabled) mGeofencing.registerAllGeofences();
-                else mGeofencing.unRegisterAllGeofences();
-            }
-        });
+//        mIsNotificationEnabled = this.getActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(getString(R.string.setting_enabled), false);
+//        switchNotification.setChecked(mIsNotificationEnabled);
+//        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                SharedPreferences.Editor editor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
+//                editor.putBoolean(getString(R.string.setting_enabled), isChecked);
+//                mIsNotificationEnabled = isChecked;
+//                editor.commit();
+//                if(mIsNotificationEnabled) mGeofencing.registerAllGeofences();
+//                else mGeofencing.unRegisterAllGeofences();
+//            }
+//        });
 
         return root;
-    }
-
-    private void setupCenterViewModel() {
-        CenterViewModel centerViewModel = new ViewModelProvider(this).get(CenterViewModel.class);
-        centerViewModel.getCenters().observe(getViewLifecycleOwner(), new Observer<List<Center>>() {
-            @Override
-            public void onChanged(@Nullable List<Center> centers) {
-                Log.d(TAG, "Updating list of centers from LiveData in ViewModel");
-                Log.d(TAG, "Size of centers = " + centers.size());
-                mGeofencing.updateGeofencesList(centers);
-                if(mIsNotificationEnabled && centers.size() > 0)
-                    mGeofencing.registerAllGeofences();
-            }
-        });
     }
 
     private void selectImage(Context context) {
@@ -234,15 +217,15 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setupProfileViewModel() {
-        AppExecutors.getInstance().diskIO().execute(() -> {
-            // If no profile, create user's profile with empty data
-            if(mDb.userDao().getRowCount() == 0 ) {
-                editMode = true;
-                userProfile = new UserEntry("", "", "", "", "", "", "");
-                mDb.userDao().insertUser(userProfile);
-               //setupUI();
-            }
-        });
+//        AppExecutors.getInstance().diskIO().execute(() -> {
+//            // If no profile, create user's profile with empty data
+//            if(mDb.userDao().getRowCount() == 0 ) {
+//                editMode = true;
+//                userProfile = new UserEntry("", "", "", "", "", "", "");
+//                mDb.userDao().insertUser(userProfile);
+//               //setupUI();
+//            }
+//        });
 
         ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         profileViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
@@ -256,8 +239,6 @@ public class ProfileFragment extends Fragment {
                 autoCompleteBloodType.setText(userProfile.getBloodtype());
                 editTextContactName.setText(userProfile.getContactName());
                 editTextContactPhone.setText(userProfile.getContactPhone());
-
-                Log.d(TAG, "saved profile PictureUri is " + userProfile.getPictureUri());
 
                 if (user.getPictureUri() != null) {
                     Glide.with(mContext)

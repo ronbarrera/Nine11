@@ -126,8 +126,11 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_address"
-                style="@style/ProfileEditTextView"
-                android:inputType="textPostalAddress" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@drawable/edit_text_selector"
+                android:maxLines="2"
+                android:inputType="textPostalAddress|textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -212,7 +215,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="50dp"
             android:hint="Phone"
-            app:layout_constraintBottom_toTopOf="@id/text_notification_label"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/inputlayout_contact_name"
             app:layout_constraintStart_toStartOf="@id/inputlayout_contact_name"
             app:layout_constraintTop_toBottomOf="@id/inputlayout_contact_name"
@@ -224,39 +227,5 @@
                 style="@style/ProfileEditTextView"
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/text_notification_label"
-            style="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="24dp"
-            android:text="Notifications"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputlayout_contact_phone" />
-
-        <TextView
-            android:id="@+id/text_switch_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Allow notification for saved center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/switch_notification"
-            app:layout_constraintStart_toStartOf="@id/text_notification_label"
-            app:layout_constraintTop_toBottomOf="@id/text_notification_label" />
-
-        <Switch
-            android:id="@+id/switch_notification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/text_switch_label"
-            app:layout_constraintEnd_toEndOf="@id/text_notification_label"
-            app:layout_constraintStart_toEndOf="@id/text_switch_label"
-            app:layout_constraintTop_toTopOf="@id/text_switch_label" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

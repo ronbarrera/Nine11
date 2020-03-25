@@ -29,27 +29,27 @@ public class AllCenterFragment extends Fragment {
         ButterKnife.bind(this, root);
 
 
-        new FirebaseDatabaseHelper().readCentersFirebase(new FirebaseDatabaseHelper.DataStatus() {
-            @Override
-            public void DataIsLoaded(List<Center> centers, List<String> keys) {
-                new RecyclerViewConfig().setConfig(mRecyclerView, getContext(), centers, keys);
-            }
-
-            @Override
-            public void DataIsInserted() {
-
-            }
-
-            @Override
-            public void DataIsUpdated() {
-
-            }
-
-            @Override
-            public void DataIsDeleted() {
-
-            }
-        });
+//        new FirebaseDatabaseHelper().readCentersFirebase(new FirebaseDatabaseHelper.DataStatus() {
+//            @Override
+//            public void DataIsLoaded(List<Center> centers, List<String> keys) {
+//                new RecyclerViewConfig().setConfig(mRecyclerView, getContext(), centers, keys);
+//            }
+//
+//            @Override
+//            public void DataIsInserted() {
+//
+//            }
+//
+//            @Override
+//            public void DataIsUpdated() {
+//
+//            }
+//
+//            @Override
+//            public void DataIsDeleted() {
+//
+//            }
+//        });
 
         return root;
 

@@ -1,73 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/text_saved_center_psap_name"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
+            style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Public Safety Communication Manager"
+            android:text="Santa Clara County Sherrif Communications (San Jose)"
             android:textStyle="bold"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <ImageButton
+            android:id="@+id/button_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_delete"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    style="@style/Widget.MaterialComponents.CardView"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:backgroundTint="@color/colorBackground"-->
-<!--    android:layout_marginBottom="8dp">-->
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/text_center_title"-->
-<!--            style="@style/TextAppearance.MaterialComponents.Headline6"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="16dp"-->
-<!--            android:text="Public Safety Communication Manager"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/text_center_address"-->
-<!--            style="@style/TextAppearance.MaterialComponents.Body2"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginVertical="8dp"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/text_center_title"-->
-<!--            app:layout_constraintStart_toStartOf="@id/text_center_title"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/text_center_title"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/text_center_phone"-->
-<!--            android:text="3150 Lenox Park Blvd Suite 108 \nMemphis, TN 38115"-->
-<!--            android:textStyle="italic"/>-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/text_center_phone"-->
-<!--            style="@style/TextAppearance.MaterialComponents.Body2"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginVertical="8dp"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/text_center_address"-->
-<!--            app:layout_constraintStart_toStartOf="@id/text_center_address"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/text_center_address"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            android:text="901-380-3912" />-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--</com.google.android.material.card.MaterialCardView>-->
