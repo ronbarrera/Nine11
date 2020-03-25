@@ -122,7 +122,6 @@ public class SavedCenterFragment extends Fragment {
                 if(centers.size() == 0) {
                     mTextViewNoSaved.setVisibility(View.VISIBLE);
                     switchNotification.setChecked(false);
-                    mGeofencing.unRegisterAllGeofences();
                     switchNotification.setEnabled(false);
                 }
                 else {
