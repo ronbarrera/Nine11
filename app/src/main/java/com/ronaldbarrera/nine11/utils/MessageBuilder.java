@@ -27,9 +27,11 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.ronaldbarrera.nine11.MainActivity;
 import com.ronaldbarrera.nine11.R;
 import com.ronaldbarrera.nine11.database.UserEntry;
+import com.ronaldbarrera.nine11.ui.center.CenterFragment;
 import com.ronaldbarrera.nine11.viewmodel.ProfileViewModel;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -90,6 +92,7 @@ public class MessageBuilder {
             sb.append("My Location: ").append(geoPoint);
         }
 
+        Log.d("MessageBuilder" , "isShowAlert = " + isShowAlert);
         if(isShowAlert) {
             new MaterialAlertDialogBuilder(mContext)
                     .setTitle("Confirm?")
@@ -104,6 +107,7 @@ public class MessageBuilder {
                     .show();
         } else {
             smsManager.sendTextMessage(mPhoneNumber, null, sb.toString(), null, null);
+
         }
     }
 }

@@ -117,8 +117,8 @@ public class SavedCenterFragment extends Fragment {
                 editor.apply();
                 setupNotificationIcon();
 
-//                if(mIsNotificationEnabled) mGeofencing.registerAllGeofences();
-//                else mGeofencing.unRegisterAllGeofences();
+                if(mIsNotificationEnabled) mGeofencing.registerAllGeofences();
+                else mGeofencing.unRegisterAllGeofences();
             }
         });
 

@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 
 public class CenterFragment extends Fragment {
 
-    private static final int PERMISSIONS_REQUEST = 0;
+    private static final int PERMISSIONS_REQUEST_APP = 1;
     private Context mContext;
 
     @BindView(R.id.fragment_center_layout)
@@ -84,10 +84,10 @@ public class CenterFragment extends Fragment {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_APP);
             } else {
                 // No explanation needed; request the permission
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_APP);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
@@ -97,26 +97,6 @@ public class CenterFragment extends Fragment {
             // Permission has already been granted
             new MessageBuilder(mContext).buildSMS(false);
             Snackbar.make(mLayout, "Emergency SMS Sent!", Snackbar.LENGTH_SHORT).setAnchorView(mSMS).show();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
-        Log.d("CenterFragment", "onRequestPermissionResult");
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    new MessageBuilder(mContext).buildSMS(false);
-                    Snackbar.make(mLayout, "Emergency SMS Sent!", Snackbar.LENGTH_SHORT).setAnchorView(mSMS).show();
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
         }
     }
 
