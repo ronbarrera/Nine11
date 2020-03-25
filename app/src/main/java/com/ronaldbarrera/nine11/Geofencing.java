@@ -35,38 +35,33 @@ public class Geofencing {
 
     public  Geofencing(Context context) {
         mContext = context;
-//        mGoogleApiClient = client;
         mGeofencePendingIntent = null;
         mGeofenceList = new ArrayList<>();
     }
 
     public void registerAllGeofences() {
-//        if(mGoogleApiClient == null || !mGoogleApiClient.isConnected() || mGeofenceList == null | mGeofenceList.size() == 0)
-//            return;
+        if(mGeofenceList == null | mGeofenceList.size() == 0)
+            return;
 
         Log.d(TAG, "onRegisterAllGeofences called");
 
-            mGeofencingClient = LocationServices.getGeofencingClient(mContext);
-            mGeofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
-                    .addOnSuccessListener((Activity) mContext, new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "registerAllGeofences onSuccess");
-                        }
-                    })
-                    .addOnFailureListener((Activity) mContext, new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "registerAllGeofences onFailure");
-
-                        }
-                    });
+        mGeofencingClient = LocationServices.getGeofencingClient(mContext);
+        mGeofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
+                .addOnSuccessListener((Activity) mContext, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "registerAllGeofences onSuccess");
+                    }
+                })
+                .addOnFailureListener((Activity) mContext, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "registerAllGeofences onFailure");
+                    }
+                });
     }
 
     public void unRegisterAllGeofences() {
-//        if(mGoogleApiClient == null || !mGoogleApiClient.isConnected())
-//            return;
-
         mGeofencingClient.removeGeofences(getGeofencePendingIntent())
                 .addOnSuccessListener((Activity) mContext, new OnSuccessListener<Void>() {
                     @Override

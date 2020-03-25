@@ -84,7 +84,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         }
 
         // Continue building the notification
-        builder.setContentText("This is setContentText");
+        builder.setContentText("If you have an emergency, you can text 911 using!");
         builder.setContentIntent(notificationPendingIntent);
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
 

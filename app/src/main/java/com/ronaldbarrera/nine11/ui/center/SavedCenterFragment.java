@@ -69,8 +69,6 @@ public class SavedCenterFragment extends Fragment {
         Log.d("SavedFragment", "onCreateView called");
         ButterKnife.bind(this, root);
 
-
-        //LinearLayoutManager layoutManager= new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(layoutManager);
 
@@ -78,28 +76,6 @@ public class SavedCenterFragment extends Fragment {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
 
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            // Called when a user swipes left or right on a ViewHolder
-//            @Override
-//            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-//                // Here is where you'll implement swipe to delete
-//                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        int position = viewHolder.getAdapterPosition();
-//                        List<Center> centers = mAdapter.getSavedCenters();
-//                        mDb.centerDao().deleteCenter(centers.get(position));
-//                        Snackbar.make(mFragmentSavedLayout, "Center Deleted!", Snackbar.LENGTH_LONG).show();
-//
-//                    }
-//                });
-//            }
-//        }).attachToRecyclerView(mRecyclerView);
 
         mDb = AppDatabase.getInstance(mContext);
         setupCenterViewModel();
@@ -122,6 +98,7 @@ public class SavedCenterFragment extends Fragment {
             }
         });
 
+        mGeofencing = new Geofencing(mContext);
 
         return root;
     }
@@ -139,10 +116,13 @@ public class SavedCenterFragment extends Fragment {
         centerViewModel.getCenters().observe(getViewLifecycleOwner(), new Observer<List<Center>>() {
             @Override
             public void onChanged(@Nullable List<Center> centers) {
+                Log.d(TAG, "onChanged Called and updatingGeoFecesList");
                 mAdapter.setSavedCenters(centers);
+                mGeofencing.updateGeofencesList(centers);
                 if(centers.size() == 0) {
                     mTextViewNoSaved.setVisibility(View.VISIBLE);
                     switchNotification.setChecked(false);
+                    mGeofencing.unRegisterAllGeofences();
                     switchNotification.setEnabled(false);
                 }
                 else {
