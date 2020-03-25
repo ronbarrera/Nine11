@@ -28,28 +28,27 @@ public class AllCenterFragment extends Fragment {
         View root =  inflater.inflate(R.layout.fragment_all_center, container, false);
         ButterKnife.bind(this, root);
 
+        new FirebaseDatabaseHelper().readCentersFirebase(new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<Center> centers, List<String> keys) {
+                new RecyclerViewConfig().setConfig(mRecyclerView, getContext(), centers, keys);
+            }
 
-//        new FirebaseDatabaseHelper().readCentersFirebase(new FirebaseDatabaseHelper.DataStatus() {
-//            @Override
-//            public void DataIsLoaded(List<Center> centers, List<String> keys) {
-//                new RecyclerViewConfig().setConfig(mRecyclerView, getContext(), centers, keys);
-//            }
-//
-//            @Override
-//            public void DataIsInserted() {
-//
-//            }
-//
-//            @Override
-//            public void DataIsUpdated() {
-//
-//            }
-//
-//            @Override
-//            public void DataIsDeleted() {
-//
-//            }
-//        });
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
 
         return root;
 

@@ -32,10 +32,7 @@ import butterknife.ButterKnife;
 
 public class CenterFragment extends Fragment {
 
-    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
-
-    String phoneNo;
-    String message;
+    private static final int PERMISSIONS_REQUEST = 0;
     private Context mContext;
 
     @BindView(R.id.fragment_center_layout)
@@ -67,20 +64,14 @@ public class CenterFragment extends Fragment {
         mSMS.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                new MessageBuilder(mContext).buildSMS(false);
-                //sendSMSMessage();
-                Snackbar.make(mLayout, "Emergency SMS Sent!", Snackbar.LENGTH_SHORT).setAnchorView(mSMS).show();
-
+                checkPermissions();
                 return true;
             }
         });
         return root;
     }
 
-    public void sendSMSMessage() {
-        phoneNo = "5102095955";
-        message = "Test new permission";
-        Log.d("CenterFragment", "sendSMSMEssage");
+    public void checkPermissions() {
 
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED
@@ -93,10 +84,10 @@ public class CenterFragment extends Fragment {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_SEND_SMS);
+                requestPermissions(new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST);
             } else {
                 // No explanation needed; request the permission
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_SEND_SMS);
+                requestPermissions(new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
@@ -104,62 +95,29 @@ public class CenterFragment extends Fragment {
             }
         } else {
             // Permission has already been granted
-             SmsManager smsManager = SmsManager.getDefault();
-             smsManager.sendTextMessage(phoneNo, null, message, null, null);
-
+            new MessageBuilder(mContext).buildSMS(false);
+            Snackbar.make(mLayout, "Emergency SMS Sent!", Snackbar.LENGTH_SHORT).setAnchorView(mSMS).show();
         }
-
-
-//        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.SEND_SMS)) {
-//                Log.d("CenterFragment", "sendSMSMEssage if if ");
-//
-//            } else {
-//                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.SEND_SMS}, MY_PERMISSIONS_REQUEST_SEND_SMS);
-//                Log.d("CenterFragment", "sendSMSMEssage if if else");
-//
-//            }
-//        }
-
-       // SmsManager smsManager = SmsManager.getDefault();
-       // smsManager.sendTextMessage(phoneNo, null, message, null, null);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
         Log.d("CenterFragment", "onRequestPermissionResult");
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+            case PERMISSIONS_REQUEST: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    sendSMSMessage();
+                    new MessageBuilder(mContext).buildSMS(false);
+                    Snackbar.make(mLayout, "Emergency SMS Sent!", Snackbar.LENGTH_SHORT).setAnchorView(mSMS).show();
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
-//        switch (requestCode) {
-//            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
-//                if (grantResults.length > 0
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    SmsManager smsManager = SmsManager.getDefault();
-//                    smsManager.sendTextMessage(phoneNo, null, message, null, null);
-//                    Toast.makeText(getContext(), "SMS sent.",
-//                            Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(getContext(),
-//                            "SMS faild, please try again.", Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//            }
-//        }
     }
 
     @Override
