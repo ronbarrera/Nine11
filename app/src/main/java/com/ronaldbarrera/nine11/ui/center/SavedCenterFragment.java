@@ -38,7 +38,6 @@ import butterknife.ButterKnife;
 
 public class SavedCenterFragment extends Fragment {
 
-    private CenterViewModel savedViewModel;
     private static final String TAG = SavedCenterFragment.class.getSimpleName();
     private Context mContext;
     private SavedAdapter mAdapter;
@@ -61,12 +60,8 @@ public class SavedCenterFragment extends Fragment {
     @BindView(R.id.text_switch_label)
     TextView swithTextLabel;
 
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        savedViewModel = new ViewModelProvider(this).get(CenterViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_saved_center, container, false);
-        Log.d("SavedFragment", "onCreateView called");
         ButterKnife.bind(this, root);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
@@ -76,28 +71,24 @@ public class SavedCenterFragment extends Fragment {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
 
-
         mDb = AppDatabase.getInstance(mContext);
         setupCenterViewModel();
 
         mIsNotificationEnabled = this.getActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(getString(R.string.setting_enabled), false);
         switchNotification.setChecked(mIsNotificationEnabled);
         setupNotificationIcon();
-        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, "this is onCheckedChanged");
-                SharedPreferences.Editor editor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
-                editor.putBoolean(getString(R.string.setting_enabled), isChecked);
-                mIsNotificationEnabled = isChecked;
-                editor.apply();
-                setupNotificationIcon();
+        switchNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
+            editor.putBoolean(getString(R.string.setting_enabled), isChecked);
+            mIsNotificationEnabled = isChecked;
+            editor.apply();
+            setupNotificationIcon();
 
-                if(mIsNotificationEnabled) mGeofencing.registerAllGeofences();
-                else mGeofencing.unRegisterAllGeofences();
-            }
+            if(mIsNotificationEnabled) mGeofencing.registerAllGeofences();
+            else mGeofencing.unRegisterAllGeofences();
         });
 
+        Log.d(TAG, "onCreate called before new Geofencing");
         mGeofencing = new Geofencing(mContext);
 
         return root;
@@ -108,7 +99,6 @@ public class SavedCenterFragment extends Fragment {
             swithTextLabel.setCompoundDrawablesWithIntrinsicBounds(mContext.getDrawable(R.drawable.ic_notifications_active), null, null, null);
         else
             swithTextLabel.setCompoundDrawablesWithIntrinsicBounds(mContext.getDrawable(R.drawable.ic_notifications_off), null, null, null);
-
     }
 
     private void setupCenterViewModel() {
@@ -116,7 +106,6 @@ public class SavedCenterFragment extends Fragment {
         centerViewModel.getCenters().observe(getViewLifecycleOwner(), new Observer<List<Center>>() {
             @Override
             public void onChanged(@Nullable List<Center> centers) {
-                Log.d(TAG, "onChanged Called and updatingGeoFecesList");
                 mAdapter.setSavedCenters(centers);
                 mGeofencing.updateGeofencesList(centers);
                 if(centers.size() == 0) {

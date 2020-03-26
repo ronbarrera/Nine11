@@ -4,7 +4,7 @@
     android:initialLayout="@layout/nine11_app_widget"
     android:minWidth="80dp"
     android:minHeight="40dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/logo_purple"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen"></appwidget-provider>

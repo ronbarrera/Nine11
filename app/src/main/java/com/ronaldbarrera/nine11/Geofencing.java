@@ -24,7 +24,6 @@ public class Geofencing {
 
     public static final String TAG = Geofencing.class.getSimpleName();
 
-    //private GoogleApiClient mGoogleApiClient;
     private GeofencingClient mGeofencingClient;
     private Context mContext;
     private PendingIntent mGeofencePendingIntent;
@@ -62,6 +61,7 @@ public class Geofencing {
     }
 
     public void unRegisterAllGeofences() {
+        mGeofencingClient = LocationServices.getGeofencingClient(mContext);
         mGeofencingClient.removeGeofences(getGeofencePendingIntent())
                 .addOnSuccessListener((Activity) mContext, new OnSuccessListener<Void>() {
                     @Override

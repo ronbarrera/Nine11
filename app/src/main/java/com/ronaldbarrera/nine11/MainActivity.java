@@ -35,8 +35,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import butterknife.BindView;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSIONS_REQUEST_WIDGET = 0;
@@ -52,21 +50,9 @@ public class MainActivity extends AppCompatActivity {
             checkPermissions();
         }
 
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_center, R.id.navigation_profile)
-                .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
-       // navView.setSelectedItemId(R.id.navigation_profile);
-
-        //mMessage = new MessageBuilder(this);
 
         setupUserProfile();
     }
@@ -83,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -92,68 +76,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkPermissions() {
-
-        // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED
         && ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.SEND_SMS)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
                 requestPermissions(new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_WIDGET);
             } else {
-                // No explanation needed; request the permission
                 requestPermissions(new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_WIDGET);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         } else {
-            // Permission has already been granted
             new MessageBuilder(this).buildSMS(true);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        Log.d("MainActrivity", "onRequestPermissionResult is called code = " + requestCode);
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WIDGET: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     new MessageBuilder(this).buildSMS(true);
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    // permission denied
                 }
                 return;
             }
             case PERMISSIONS_REQUEST_APP: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     new MessageBuilder(this).buildSMS(false);
-                    Snackbar.make(findViewById(R.id.fragment_center_layout), "Emergency SMS Sent!", Snackbar.LENGTH_SHORT).setAnchorView(findViewById(R.id.fab_sms)).show();
+                    Snackbar.make(findViewById(R.id.fragment_center_layout), getString(R.string.snackbar_sms_sent), Snackbar.LENGTH_SHORT).setAnchorView(findViewById(R.id.fab_sms)).show();
 
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    // permission denied
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 }

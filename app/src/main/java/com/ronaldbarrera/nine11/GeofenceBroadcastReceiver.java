@@ -22,12 +22,11 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
     public static final String TAG = GeofenceBroadcastReceiver.class.getSimpleName();
 
     public static final String CHANNEL_ID = "10001";
+    private Context mContext;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        Log.d(TAG, "onRecieve called");
-
+        mContext = context;
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
             Log.e(TAG, String.format("Error code : %d", geofencingEvent.getErrorCode()));
@@ -73,18 +72,18 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         // Check the transition type to display the relevant icon image
         if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER) {
             builder.setSmallIcon(R.drawable.logo)
-                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.logo))
-                    .setContentTitle("You have entered the location");
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.logo))
+                    .setContentTitle(mContext.getString(R.string.notification_enter_title))
+                    .setContentText(mContext.getString(R.string.notification_enter_content));
+
         } else if (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT) {
             builder.setSmallIcon(R.drawable.logo)
-                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.logo))
-                    .setContentTitle("You have exited the location");
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.logo))
+                    .setContentTitle(mContext.getString(R.string.notification_exit_title))
+                    .setContentText(mContext.getString(R.string.notification_exit_content));
         }
 
         // Continue building the notification
-        builder.setContentText("If you have an emergency, you can text 911 using!");
         builder.setContentIntent(notificationPendingIntent);
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
@@ -101,8 +100,8 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void createNotificationChannel(Context context) {
-        CharSequence name = "getString(R.string.channel_name)";
-        String description = "getString(R.string.channel_description)";
+        CharSequence name = mContext.getString(R.string.channel_name);
+        String description = mContext.getString(R.string.channel_description);
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
         channel.setDescription(description);

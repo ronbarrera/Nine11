@@ -5,7 +5,6 @@
     <string name="title_profile">Profile</string>
     <string name="title_settings">Settings</string>
 
-
     <string-array name="types_blood_list">
         <item>A+</item>
         <item>O+</item>
@@ -19,14 +18,43 @@
 
     <string name="title_activity_location_map">Map</string>
 
-    <string name="setting_enabled" translatable="false">EnabledSetting</string>
-
-
-    <string name="tab_all_centers">All Centers</string>
-    <string name="tab_saved_centers">Saved Centers</string>
-
-
+    <!-- Widget -->
     <string name="name_string"><b>%s</b>\n<i>%s</i></string>
     <string name="appwidget_text">Nine11</string>
     <string name="add_widget">Add widget</string>
+
+    <!-- CenterFragment -->
+    <string name="snackbar_single_click">Hold Down Button to Send Emergency SMS</string>
+    <string name="snackbar_sms_sent">Emergency SMS Sent!</string>
+
+    <!-- CenterMapActivity -->
+    <string name="snackbar_center_added">Center Added!</string>
+    <string name="snackbar_center_deleted">Center Deleted!</string>
+
+    <!-- SavedAdapter -->
+    <string name="alert_delete_title">Delete this center?</string>
+    <string name="alert_delete_message">This action cannot be undone.</string>
+    <string name="alert_delete_positive">Delete</string>
+    <string name="alert_delete_negative">Cancel</string>
+
+    <!-- SavedCenterFragment -->
+    <string name="setting_enabled" translatable="false">EnabledSetting</string>
+
+    <!-- SectionsPagerAdapter -->
+    <string name="tab_all_centers">All Centers</string>
+    <string name="tab_saved_centers">Saved Centers</string>
+
+    <!-- ProfileFragment -->
+    <string name="picker_dob_text">Select Date of Birth</string>
+    <string name="picker_image_select">Choose from Gallery</string>
+    <string name="picker_image_cancel">Cancel</string>
+    <string name="alert_image_title">Choose your profile pictuer</string>
+
+    <!-- GeofenceBroadcastReceiver -->
+    <string name="notification_enter_title">Entering Saved Location</string>
+    <string name="notification_enter_content">In case of emergency, you can text 911!</string>
+    <string name="notification_exit_title">Exiting Saved Location</string>
+    <string name="notification_exit_content">You have exit a location where 911 is allowed</string>
+    <string name="channel_name">geo_notification</string>
+    <string name="channel_description">geofence notification</string>
 </resources>

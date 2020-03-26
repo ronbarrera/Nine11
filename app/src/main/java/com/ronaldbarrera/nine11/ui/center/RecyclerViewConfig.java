@@ -34,7 +34,6 @@ public class RecyclerViewConfig {
     class CenterItemView extends RecyclerView.ViewHolder  implements View.OnClickListener {
         @BindView(R.id.text_center_psap_name) TextView mPsapName;
         @BindView(R.id.text_center_address) TextView mAddress;
-        //@BindView(R.id.text_center_phone) TextView mPhone;
         private String key;
         private Center center;
 
@@ -48,7 +47,6 @@ public class RecyclerViewConfig {
             this.center = center;
             mPsapName.setText(center.getPsap_name());
             mAddress.setText(center.getFullAddress());
-            //mPhone.setText(center.getPhone());
             this.key = key;
         }
 
@@ -86,7 +84,5 @@ public class RecyclerViewConfig {
         public int getItemCount() {
             return mCenterList.size();
         }
-
-
     }
 }

@@ -24,7 +24,6 @@ public class AllCenterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_all_center, container, false);
         ButterKnife.bind(this, root);
 
@@ -35,22 +34,14 @@ public class AllCenterFragment extends Fragment {
             }
 
             @Override
-            public void DataIsInserted() {
-
-            }
+            public void DataIsInserted() {}
 
             @Override
-            public void DataIsUpdated() {
-
-            }
+            public void DataIsUpdated() {}
 
             @Override
-            public void DataIsDeleted() {
-
-            }
+            public void DataIsDeleted() {}
         });
-
         return root;
-
     }
 }

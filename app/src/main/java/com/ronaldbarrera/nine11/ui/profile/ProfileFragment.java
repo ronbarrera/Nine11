@@ -87,16 +87,9 @@ public class ProfileFragment extends Fragment {
 
     private boolean editMode = false;
     private UserEntry userProfile;
-
     private Context mContext;
-    private Geofencing mGeofencing;
-
-
-
-    private ProfileViewModel profileViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
         ButterKnife.bind(this, root);
@@ -110,7 +103,7 @@ public class ProfileFragment extends Fragment {
         autoCompleteBloodType.setAdapter(adapter);
 
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-        builder.setTitleText("Select Date of Birth");
+        builder.setTitleText(mContext.getString(R.string.picker_dob_text));
 
         Calendar c = Calendar.getInstance();
         long todayDate = c.getTimeInMillis();
@@ -147,56 +140,32 @@ public class ProfileFragment extends Fragment {
 
             editTextDob.setText(materialDatePicker.getHeaderText());
         });
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(editMode)
-                    updateUserDB();
-                editMode = !editMode;
-                setupUI();
-            }
-        });
-        buttonChangePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage(getContext());
-            }
+
+        buttonEdit.setOnClickListener(v -> {
+            if(editMode)
+                updateUserDB();
+            editMode = !editMode;
+            setupUI();
         });
 
-        mGeofencing = new Geofencing(mContext);
-
-       // setupCenterViewModel();
-
-//        mIsNotificationEnabled = this.getActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(getString(R.string.setting_enabled), false);
-//        switchNotification.setChecked(mIsNotificationEnabled);
-//        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                SharedPreferences.Editor editor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
-//                editor.putBoolean(getString(R.string.setting_enabled), isChecked);
-//                mIsNotificationEnabled = isChecked;
-//                editor.commit();
-//                if(mIsNotificationEnabled) mGeofencing.registerAllGeofences();
-//                else mGeofencing.unRegisterAllGeofences();
-//            }
-//        });
+        buttonChangePhoto.setOnClickListener(v -> selectImage(getContext()));
 
         return root;
     }
 
     private void selectImage(Context context) {
-        final CharSequence[] options = {"Choose from Gallery", "Cancel"};
+        final CharSequence[] options = {mContext.getString(R.string.picker_image_select), mContext.getString(R.string.picker_image_cancel)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Choose your profile picture");
+        builder.setTitle(mContext.getString(R.string.alert_image_title));
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if(options[item].equals("Choose from Gallery")) {
+                if(options[item].equals(mContext.getString(R.string.picker_image_select))) {
                     Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                             MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(galleryIntent, 0);
-                } else if (options[item].equals("Cancel")) {
+                } else if (options[item].equals(mContext.getString(R.string.picker_image_cancel))) {
                     dialog.dismiss();
                 }
             }
@@ -217,19 +186,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setupProfileViewModel() {
-//        AppExecutors.getInstance().diskIO().execute(() -> {
-//            // If no profile, create user's profile with empty data
-//            if(mDb.userDao().getRowCount() == 0 ) {
-//                editMode = true;
-//                userProfile = new UserEntry("", "", "", "", "", "", "");
-//                mDb.userDao().insertUser(userProfile);
-//               //setupUI();
-//            }
-//        });
-
         ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         profileViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
-            Log.d(TAG, "Updating user from LiveData in ViewModel");
             if(user != null) {
                 userProfile = user;
                 editTextPersonalName.setText(userProfile.getPersonalName());
@@ -246,7 +204,6 @@ public class ProfileFragment extends Fragment {
                             .into(imageProfile);
                 }
             }
-
         });
     }
 

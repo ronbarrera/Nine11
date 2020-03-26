@@ -41,14 +41,9 @@ import com.google.gson.Gson;
 import com.ronaldbarrera.nine11.AppExecutors;
 import com.ronaldbarrera.nine11.R;
 import com.ronaldbarrera.nine11.database.AppDatabase;
-import com.ronaldbarrera.nine11.ui.center.Center;
-
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
 
 public class CenterMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -58,7 +53,6 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private Center center;
     private boolean isSaved;
-
 
     @BindView(R.id.text_center_psap_name)
     TextView mPsapName;
@@ -85,14 +79,12 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
         ButterKnife.bind(this);
         mDb = AppDatabase.getInstance(getApplicationContext());
 
-
         Gson gson = new Gson();
         String strOjb = getIntent().getStringExtra("center");
         center = gson.fromJson(strOjb, Center.class);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         mPsapName.setText(center.getPsap_name());
@@ -100,7 +92,6 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
         mTitle.setText(center.getTitle());
         mAddress.setText(center.getFullAddress());
         mPhone.setText(center.getPhone());
-
 
         AppExecutors.getInstance().diskIO().execute(() -> {
             Center mDbCenter = mDb.centerDao().getCenterById(center.getId());
@@ -112,21 +103,11 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        getLocationPermission();
         mMap = googleMap;
-
         LatLng geoPoint = new LatLng(center.getLat(), center.getLng());
-
 
         // Instantiates a new CircleOptions object and defines the center and radius
         CircleOptions circleOptions = new CircleOptions()
@@ -136,32 +117,19 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
                 .strokeWidth(2)
                 .radius(5500); // In meters
 
-        // Get back the mutable Circle
-        Circle circle = mMap.addCircle(circleOptions);
-
-
-        //LatLng scCamera = new LatLng(37.423688,-122.15071);
-
-        getLocationPermission();
+        // add Circle
+        mMap.addCircle(circleOptions);
 
         // create marker
         MarkerOptions marker = new MarkerOptions().position(geoPoint).title(center.getTitle());
 
         // Changing marker icon
-        //marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.my_marker_icon)));
         marker.icon(bitmapDescriptorFromVector(this, R.drawable.ic_shield));
 
         // adding marker
         googleMap.addMarker(marker);
-        // Add a marker in Sydney and move the camera
-        //mMap.addMarker(new MarkerOptions().position(geoPoint).title(center.getTitle()));
         mMap.addMarker(marker);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(geoPoint, 11));
-
-
-
-
-
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
@@ -174,11 +142,7 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     private void getLocationPermission() {
-        /*
-         * Request center permission, so that we can get the center of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
+        // Check and request permission for ACCESS_FINE_LOCATION
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -222,7 +186,7 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
                 getLocationPermission();
             }
         } catch (SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -231,39 +195,20 @@ public class CenterMapActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     public void onSaveAction(View view) {
-
-        Log.d("CenterMapActivity", "this is isFavorite =  " + isSaved);
         isSaved = !isSaved;
 
         if(isSaved) {
             AppExecutors.getInstance().diskIO().execute(() -> { mDb.centerDao().insertCenter(center); });
-            Snackbar.make(mActivityCenterLayout, "Center Added!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(mActivityCenterLayout, getString(R.string.snackbar_center_added), Snackbar.LENGTH_LONG).show();
         } else {
             AppExecutors.getInstance().diskIO().execute(() -> { mDb.centerDao().deleteCenter(center); });
-            Snackbar.make(mActivityCenterLayout, "Center Deleted!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(mActivityCenterLayout, getString(R.string.snackbar_center_deleted), Snackbar.LENGTH_LONG).show();
         }
-
         onSaveUI();
-
-//        if(isSaved) {
-//            //onSaveUI();
-//            isSaved = false;
-//            //unmarkAsFavorite();
-//            mSave.setImageDrawable(getDrawable(R.drawable.ic_favorite_border));
-//        } else {
-//            isSaved = true;
-//            //markAsFavorite();
-//            mSave.setImageDrawable(getDrawable(R.drawable.ic_favorite));
-//        }
     }
 
     public void onSaveUI() {
         Drawable saveIcon = getDrawable((isSaved ? R.drawable.ic_favorite : R.drawable.ic_favorite_border));
         mSave.setImageDrawable(saveIcon);
-    }
-
-    private void markAsFavorite() {
-        AppExecutors.getInstance().diskIO().execute(() -> { mDb.centerDao().insertCenter(center); });
-        Snackbar.make(mActivityCenterLayout, "Center Added!", Snackbar.LENGTH_LONG).show();
     }
 }

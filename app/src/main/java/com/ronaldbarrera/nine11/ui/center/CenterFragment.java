@@ -52,51 +52,29 @@ public class CenterFragment extends Fragment {
         TabLayout tabs = root.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+        mSMS.setOnClickListener(v -> Snackbar.make(mLayout, getString(R.string.snackbar_single_click), Snackbar.LENGTH_SHORT).setAnchorView(mSMS).show());
 
-
-        mSMS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(mLayout, "Hold Down Button to Send Emergency SMS", Snackbar.LENGTH_SHORT).setAnchorView(mSMS).show();
-            }
-        });
-
-        mSMS.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                checkPermissions();
-                return true;
-            }
+        mSMS.setOnLongClickListener(v -> {
+            checkPermissions();
+            return true;
         });
         return root;
     }
 
+    // Check and request permission for SEND_SMS and ACCESS_FINE_LOCATION
     public void checkPermissions() {
 
-        // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.SEND_SMS)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.SEND_SMS)) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_APP);
             } else {
-                // No explanation needed; request the permission
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_APP);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         } else {
-            // Permission has already been granted
             new MessageBuilder(mContext).buildSMS(false);
-            Snackbar.make(mLayout, "Emergency SMS Sent!", Snackbar.LENGTH_SHORT).setAnchorView(mSMS).show();
+            Snackbar.make(mLayout, getString(R.string.snackbar_sms_sent), Snackbar.LENGTH_SHORT).setAnchorView(mSMS).show();
         }
     }
 

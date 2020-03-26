@@ -39,28 +39,18 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedViewHol
 
     @Override
     public void onBindViewHolder(@NonNull SavedViewHolder holder, int position) {
-
         holder.mTextViewPsapName.setText(mSavedCenters.get(position).getPsap_name());
         holder.mImageButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new MaterialAlertDialogBuilder(mContext)
-                        .setTitle("Delete this center?")
-                        .setMessage("This action cannot be undone.")
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                AppDatabase mDb = AppDatabase.getInstance(mContext);
-
-                                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mDb.centerDao().deleteCenter(mSavedCenters.get(position));
-                                    }
-                                });
-                            }
+                        .setTitle(mContext.getString(R.string.alert_delete_title))
+                        .setMessage(mContext.getString(R.string.alert_delete_message))
+                        .setPositiveButton(mContext.getString(R.string.alert_delete_positive), (dialog, which) -> {
+                            AppDatabase mDb = AppDatabase.getInstance(mContext);
+                            AppExecutors.getInstance().diskIO().execute(() -> mDb.centerDao().deleteCenter(mSavedCenters.get(position)));
                         })
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton(mContext.getString(R.string.alert_delete_negative), null)
                         .show();
             }
         });
@@ -89,7 +79,6 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedViewHol
         public SavedViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
         }
      }
 }
