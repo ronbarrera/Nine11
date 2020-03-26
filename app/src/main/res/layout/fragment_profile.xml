@@ -225,7 +225,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_contact_phone"
                 style="@style/ProfileEditTextView"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:imeOptions="actionDone"/>
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

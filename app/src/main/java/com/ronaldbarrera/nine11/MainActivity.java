@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSIONS_REQUEST_WIDGET = 0;
     private static final int PERMISSIONS_REQUEST_APP = 1;
+    public static String ACTION_SEND_SMS = "send_sms_action";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        if(getIntent().getAction().equals(Nine11AppWidget.ACTION_SEND_SMS)) {
+        if(getIntent().getAction() != null && getIntent().getAction().equals(ACTION_SEND_SMS)) {
             checkPermissions();
         }
 
