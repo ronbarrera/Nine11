@@ -57,4 +57,10 @@
     <string name="notification_exit_content">You have exit a location where 911 is allowed</string>
     <string name="channel_name">geo_notification</string>
     <string name="channel_description">geofence notification</string>
+
+    <!-- MessageBuilder -->
+    <string name="alert_message_title">Confirm?</string>
+    <string name="alert_message_message">Send only in case of emergency</string>
+    <string name="alert_message_positive">Send</string>
+    <string name="alert_message_negative">Cancel</string>
 </resources>
