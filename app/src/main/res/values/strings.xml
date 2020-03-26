@@ -63,4 +63,10 @@
     <string name="alert_message_message">Send only in case of emergency</string>
     <string name="alert_message_positive">Send</string>
     <string name="alert_message_negative">Cancel</string>
+    
+    <!-- Content Description -->
+    <string name="send_sms_fab_description">Send Emergency Text</string>
+    <string name="back_fab_description">Go back</string>
+    <string name="save_fab_description">Save/Unsave Center</string>
+    <string name="edit_profile_fab_description">Edit/Save Profile</string>
 </resources>
