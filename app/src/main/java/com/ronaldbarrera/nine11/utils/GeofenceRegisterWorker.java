@@ -29,10 +29,10 @@ public class GeofenceRegisterWorker extends Worker {
     @Override
     public Result doWork() {
 
-        AppDatabase database = AppDatabase.getInstance(getApplicationContext());
-        List<Center> centers = database.centerDao().getAllCentersList();
-
         try {
+            AppDatabase database = AppDatabase.getInstance(getApplicationContext());
+            List<Center> centers = database.centerDao().getAllCentersList();
+
             Geofencing mGeofencing = new Geofencing(getApplicationContext());
             mGeofencing.updateGeofencesList(centers);
             mGeofencing.registerAllGeofences();
