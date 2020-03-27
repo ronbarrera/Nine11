@@ -3,66 +3,13 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/widget_margin">
 
-<!--    <TextView-->
-<!--        android:id="@+id/appwidget_text"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_margin="8dp"-->
-<!--        android:contentDescription="@string/appwidget_text"-->
-<!--        android:text="@string/appwidget_text"-->
-<!--        android:textColor="#ffffff"-->
-<!--        android:textSize="12sp"-->
-<!--        android:textStyle="bold|italic" />-->
-
     <Button
         android:id="@+id/appwidget_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nine11 SMS"
-        android:drawableLeft="@drawable/ic_message"
+        android:text="@string/widget_button_text"
+        android:drawableStart="@drawable/ic_message"
         android:drawableTint="@color/colorPrimary"
         android:drawablePadding="4dp"
         android:layout_centerInParent="true"/>
-
-<!--    <ListView-->
-<!--        android:id="@+id/appwidget_listview"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/appwidget_button"-->
-<!--        android:visibility="gone"/>-->
-
 </RelativeLayout>
-
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:background="@color/colorCardBackground"-->
-<!--    android:padding="@dimen/widget_margin">-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/appwidget_text"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_centerVertical="true"-->
-<!--        android:layout_margin="8dp"-->
-<!--        android:background="#09C"-->
-<!--        android:contentDescription="@string/appwidget_text"-->
-<!--        android:text="@string/appwidget_text"-->
-<!--        android:textColor="#ffffff"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textStyle="bold|italic" />-->
-
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Send SMS"-->
-<!--        android:drawableLeft="@drawable/ic_message"-->
-<!--        android:drawableTint="@color/colorPrimary"-->
-<!--        android:drawablePadding="4dp"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_centerInParent="true"/>-->
-
-<!--</RelativeLayout>-->

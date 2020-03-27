@@ -1,6 +1,7 @@
 package com.ronaldbarrera.nine11;
 
 import android.app.Activity;
+import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +32,6 @@ public class Geofencing {
 
     private static final long GEOFENCE_TIMEOUT = 24 * 60 * 60 * 1000; // 24 hours
 
-
     public  Geofencing(Context context) {
         mContext = context;
         mGeofencePendingIntent = null;
@@ -42,11 +42,9 @@ public class Geofencing {
         if(mGeofenceList == null | mGeofenceList.size() == 0)
             return;
 
-        Log.d(TAG, "onRegisterAllGeofences called");
-
         mGeofencingClient = LocationServices.getGeofencingClient(mContext);
         mGeofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
-                .addOnSuccessListener((Activity) mContext, new OnSuccessListener<Void>() {
+                .addOnSuccessListener((Activity) mContext.getApplicationContext(), new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "registerAllGeofences onSuccess");

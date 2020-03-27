@@ -17,7 +17,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:backgroundTint="#1E1E1E"
+            android:backgroundTint="@color/colorSecondaryFabBackground"
             android:elevation="8dp"
             app:cardCornerRadius="20dp">
 

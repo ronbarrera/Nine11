@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <color name="colorPrimary">#BB86FC</color>
     <color name="colorPrimaryDark">#121212</color>
     <color name="colorAccent">#06DAC6</color>
 
-<!--    <color name="colorPrimary">#008577</color>-->
-<!--    <color name="colorPrimaryDark">#00574B</color>-->
-<!--    <color name="colorAccent">#D81B60</color>-->
-
+    <!-- Background Colors -->
     <color name="colorBackground">#282828</color>
     <color name="colorCardBackground">#404040</color>
+    <color name="colorSecondaryFabBackground">#1E1E1E</color>
+
+    <color name="colorSoftPurple">#EFE5FE</color>
+    <color name="colorGrayedOut">#AAAAAA</color>
+    <color name="colorRed">#B00020</color>
 
 </resources>

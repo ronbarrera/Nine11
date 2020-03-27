@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Nine11</string>
     <string name="title_center">Center</string>
-    <string name="title_saved">Saved</string>
     <string name="title_profile">Profile</string>
-    <string name="title_settings">Settings</string>
 
     <string-array name="types_blood_list">
         <item>A+</item>
@@ -16,12 +14,13 @@
         <item>AB-</item>
     </string-array>
 
-    <string name="title_activity_location_map">Map</string>
-
+    <!-- activity_splash_screen -->
+    <string name="textview_subtitle">Here to help you in case of an emergency</string>
     <!-- Widget -->
     <string name="name_string"><b>%s</b>\n<i>%s</i></string>
     <string name="appwidget_text">Nine11</string>
     <string name="add_widget">Add widget</string>
+    <string name="widget_button_text">Nine11 SMS</string>
 
     <!-- CenterFragment -->
     <string name="snackbar_single_click">Hold Down Button to Send Emergency SMS</string>
@@ -63,10 +62,29 @@
     <string name="alert_message_message">Send only in case of emergency</string>
     <string name="alert_message_positive">Send</string>
     <string name="alert_message_negative">Cancel</string>
-    
+
     <!-- Content Description -->
     <string name="send_sms_fab_description">Send Emergency Text</string>
     <string name="back_fab_description">Go back</string>
     <string name="save_fab_description">Save/Unsave Center</string>
     <string name="edit_profile_fab_description">Edit/Save Profile</string>
+
+    <!-- fragment_all_center -->
+    <string name="textview_no_network_label">No Internet Connection!</string>
+    <!-- fragment_saved_center -->
+    <string name="textview_nosaved_label">No Center Saved!</string>
+    <string name="textview_switch_label">Notifications</string>
+
+    <!-- fragment_profile -->
+    <string name="textview_emegerncy_info_label">Emergency Information</string>
+    <string name="textview_personal_info_label">Personal Information</string>
+    <string name="textview_emergency_contact_label">Emergency Contact Information</string>
+    <string name="button_profile_text">Change Profile Photo</string>
+    <string name="textinput_hint_name">Name</string>
+    <string name="textinput_hint_phone">Phone</string>
+    <string name="textinput_hint_address">Address</string>
+    <string name="textinput_hint_dob">DOB</string>
+    <string name="textinput_hint_blood_type">Blood Type</string>
+    <string name="title_activity_location_map">Map</string>
+
 </resources>

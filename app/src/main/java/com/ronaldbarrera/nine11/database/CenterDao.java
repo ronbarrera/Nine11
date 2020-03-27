@@ -16,6 +16,9 @@ public interface CenterDao {
     @Query("SELECT * FROM center ORDER BY id")
     LiveData<List<Center>> getAllCenters();
 
+    @Query("SELECT * FROM center")
+    List<Center> getAllCentersList();
+
     @Query("SELECT * FROM center WHERE id = :id")
     Center getCenterById(String id);
 

@@ -1,7 +1,6 @@
 package com.ronaldbarrera.nine11.ui.center;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
-import com.ronaldbarrera.nine11.AppExecutors;
+import com.ronaldbarrera.nine11.utils.AppExecutors;
 import com.ronaldbarrera.nine11.R;
 import com.ronaldbarrera.nine11.database.AppDatabase;
 

@@ -2,14 +2,11 @@ package com.ronaldbarrera.nine11.ui.center;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -20,18 +17,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.ronaldbarrera.nine11.AppExecutors;
 import com.ronaldbarrera.nine11.Geofencing;
 import com.ronaldbarrera.nine11.R;
 import com.ronaldbarrera.nine11.database.AppDatabase;
+import com.ronaldbarrera.nine11.utils.GeofenceRegisterWorker;
 import com.ronaldbarrera.nine11.viewmodel.CenterViewModel;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,11 +83,16 @@ public class SavedCenterFragment extends Fragment {
             editor.apply();
             setupNotificationIcon();
 
-            if(mIsNotificationEnabled) mGeofencing.registerAllGeofences();
-            else mGeofencing.unRegisterAllGeofences();
-        });
+            if(mIsNotificationEnabled) {
+                // WorkManager to re-register geofences every 24 hours
+                PeriodicWorkRequest registerGeofenceRequest = new PeriodicWorkRequest.Builder(GeofenceRegisterWorker.class, 24, TimeUnit.HOURS).build();
+                WorkManager.getInstance(mContext).enqueue(registerGeofenceRequest);
 
-        Log.d(TAG, "onCreate called before new Geofencing");
+            } else {
+                mGeofencing.unRegisterAllGeofences();
+                WorkManager.getInstance(mContext).cancelAllWork();
+            }
+        });
         mGeofencing = new Geofencing(mContext);
 
         return root;

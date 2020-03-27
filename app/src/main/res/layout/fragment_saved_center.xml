@@ -14,9 +14,9 @@
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="No Center Saved!"
+            android:text="@string/textview_nosaved_label"
             android:textAlignment="center"
-            android:textColor="#AAAAAA"
+            android:textColor="@color/colorGrayedOut"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
                 android:drawableStart="@drawable/ic_notifications_off"
                 android:drawableTint="@color/colorPrimary"
                 android:drawablePadding="8dp"
-                android:text="Notifications"
+                android:text="@string/textview_switch_label"
                 android:layout_weight="2"/>
 
             <Switch
@@ -63,70 +63,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>
-
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:id="@+id/fragment_saved_layout"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent">-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/text_no_saved"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="No Center Saved!"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="#AAAAAA"-->
-<!--        style="@style/TextAppearance.MaterialComponents.Body1"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recyclerview_saved_centers"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--<TextView-->
-<!--android:id="@+id/text_notification_label"-->
-<!--style="@style/TextAppearance.MaterialComponents.Subtitle1"-->
-<!--android:layout_width="0dp"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:layout_marginHorizontal="24dp"-->
-<!--android:layout_marginTop="24dp"-->
-<!--android:text="Notifications"-->
-<!--android:textStyle="bold"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@id/inputlayout_contact_phone" />-->
-
-<!--<TextView-->
-<!--android:id="@+id/text_switch_label"-->
-<!--android:layout_width="0dp"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:layout_marginBottom="24dp"-->
-<!--android:text="Allow notification for saved center"-->
-<!--app:layout_constraintBottom_toBottomOf="parent"-->
-<!--app:layout_constraintEnd_toStartOf="@id/switch_notification"-->
-<!--app:layout_constraintStart_toStartOf="@id/text_notification_label"-->
-<!--app:layout_constraintTop_toBottomOf="@id/text_notification_label" />-->
-
-<!--<Switch-->
-<!--android:id="@+id/switch_notification"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--app:layout_constraintBottom_toBottomOf="@id/text_switch_label"-->
-<!--app:layout_constraintEnd_toEndOf="@id/text_notification_label"-->
-<!--app:layout_constraintStart_toEndOf="@id/text_switch_label"-->
-<!--app:layout_constraintTop_toTopOf="@id/text_switch_label" />-->
